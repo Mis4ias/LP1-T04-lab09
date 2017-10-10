@@ -10,7 +10,7 @@ class Sort {
 	public:
 		Sort (vector<T>* vtr = nullptr): vtr_in(vtr){ }
 
-		void insertionsort (vector<T> vtr){  
+		void insertion (vector<T> vtr){  
 			size_t  j=0, x=0;  
 			for (size_t i=2; i<=vtr.size(); i++){  
 		    	x = vtr[i];
@@ -23,7 +23,7 @@ class Sort {
 			    vtr[j+1] = x;
 			}
 		}
-		void selectionSort (vector<T> vtr){  
+		void selection (vector<T> vtr){  
 		    size_t  min, x;
 		    for (size_t i=1; i<=vtr.size()-1; i++){
 		        min = i;
@@ -37,7 +37,7 @@ class Sort {
 		    }
 		}
 
-		void quicksort(vector<T> vtr, size_t begin, size_t end){  
+		void quick(vector<T> vtr, size_t begin, size_t end){  
 		    size_t pivo,ch,i,j;
 		    pivo =vtr[(begin+end)/2];         
 		    for(i=begin+1;i<=end;i++){        
@@ -60,7 +60,7 @@ class Sort {
 		    }
 		}
 
-		void mergeSort(vector<T> vtr, size_t start, size_t end) {  
+		void merge(vector<T> vtr, size_t start, size_t end) {  
 		    size_t i, j, k, metadeTamanho; 
 		    vector<T> vtrTemp;
 		    if(start == end) return;

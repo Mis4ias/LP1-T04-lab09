@@ -4,8 +4,11 @@
 #include <sstream>
 using namespace std;
 
-int main(){
-
+int main(int argc,char argv*[]){	
+	vector<unsigned> input;
+	if(argv[1]=="--insertion"){
+		
+	}
 
     return 0;
 }
