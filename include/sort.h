@@ -105,7 +105,7 @@ class Sort {
 		    }
 		    free(vtrTemp);
 		}
-		void print_vector(vector<T> obj){
+		void print_vtr(vector<T> obj){
 			for(size_t k = 0; k < obj.size(); k++){
 				cout<<obj[k]<<" ";
 			}
