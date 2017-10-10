@@ -5,18 +5,14 @@
 #include <cmath>
 using namespace std;
 
-
+template <typename T>
 class Sort {
 	public:
-		vector<int> vtr;
-};
+		Sort (vector<T>* vtr = nullptr): vtr_in(vtr){ }
 
-
-class InsertionSort : public Sort<int> {
-	public:
-		void insercao (vector<int> vtr){  
-			int  j=0, x=0;  
-			for (int i=2; i<=vtr.size(); i++){  
+		void insertionsort (vector<T> vtr){  
+			size_t  j=0, x=0;  
+			for (size_t i=2; i<=vtr.size(); i++){  
 		    	x = vtr[i];
 		    	j=i-1;
 		    	vtr[0] = x; 
@@ -26,16 +22,12 @@ class InsertionSort : public Sort<int> {
 		    	}
 			    vtr[j+1] = x;
 			}
-};
-
-
-class SelectionSort : public Sort<int> {
- 	public:
-		void selecao (vector<int> vtr){  
-		    int i, j, min, x;
-		    for (int i=1; i<=vtr.size()-1; i++){
+		}
+		void selectionSort (vector<T> vtr){  
+		    size_t  min, x;
+		    for (size_t i=1; i<=vtr.size()-1; i++){
 		        min = i;
-		    for (int j=i+1; j<=vtr.size(); j++){
+		    for (size_t j=i+1; j<=vtr.size(); j++){
 		            if (vtr[j] < vtr[min])
 		            	min = j;
 		    }
@@ -44,17 +36,12 @@ class SelectionSort : public Sort<int> {
 		    vtr[i] = x;
 		    }
 		}
-};
 
-
-class QuickSort : public Sort<int> {
-
-  	public:
-		void quick(vector<int> vtr, int ini, int fim){  
-		    int pivo ,ini,ch;
-		    pivo =vtr[(ini+fim)/2];         
-		    for(int i=ini+1;i<=fim;i++){        
-		        int j = i;                      
+		void quicksort(vector<T> vtr, size_t star, size_t end){  
+		    size_t pivo ,star,ch;
+		    pivo =vtr[(star+end)/2];         
+		    for(size_t i=star+1;i<=end;i++){        
+		        size_t j = i;                      
 		        if(vtr[j] < vtr[pivo]){     
 		            ch = vtr[j];               
 		            while(j > pivo){           
@@ -65,38 +52,35 @@ class QuickSort : public Sort<int> {
 		            pivo++;                    
 		        }
 		    }
-		    if(pivo-1 >= ini){              
-		        quick(vtr,ini,pivo-1);      
+		    if(pivo-1 >= star){              
+		        quick(vtr,star,pivo-1);      
 		    }
-		    if(pivo+1 <= fim){              
-		        quick(vtr,pivo+1,fim);      
+		    if(pivo+1 <= end){              
+		        quick(vtr,pivo+1,end);      
 		    }
-		 }
+		}
 
-class MergeSort : public Sort<int> {
-
-  	public:
-		void mergeSort(vector<int> vtr, int ini, int fim) {  
-		    int i, j, k, metadeTamanho; 
+		void mergeSort(vector<T> vtr, size_t star, size_t end) {  
+		    size_t i, j, k, metadeTamanho; 
 		    vector<T> vtrTemp;
-		    if(ini == fim) return;
-		    metadeTamanho = (ini + fim ) / 2;
+		    if(star == end) return;
+		    metadeTamanho = (star + end ) / 2;
 
-		    mergeSort(vtr, ini, metadeTamanho);
-		    mergeSort(vtr, metadeTamanho + 1, fim);
+		    mergeSort(vtr, star, metadeTamanho);
+		    mergeSort(vtr, metadeTamanho + 1, end);
 
-		    i = ini;
+		    i = star;
 		    j = metadeTamanho + 1;
 		    k = 0;
 
-		    while(i < metadeTamanho + 1 || j  < fim + 1) {
+		    while(i < metadeTamanho + 1 || j  < end + 1) {
 		        if (i == metadeTamanho + 1 ) { 
 		            vtrTemp[k] = vtr[j];
 		            j++;
 		            k++;
 		        }
 		        else {
-		            if (j == fim + 1) {
+		            if (j == end + 1) {
 		                vtrTemp[k] = vtr[i];
 		                i++;
 		                k++;
@@ -116,10 +100,26 @@ class MergeSort : public Sort<int> {
 		        }
 
 		    }
-		    for(i = ini; i <= fim; i++) {
-		        vtr[i] = vtrTemp[i - ini];
+		    for(i = star; i <= end; i++) {
+		        vtr[i] = vtrTemp[i - star];
 		    }
 		    free(vtrTemp);
 		}
+		void print_vector(vector<T> obj){
+			for(size_t k = 0; k < obj.size(); k++){
+				cout<<obj[k]<<" ";
+			}
+			cout<<endl;
+		}
+
+	private:
+		vector<T> vtr_in;
 };
+
+
+
+
+
+
+
 
