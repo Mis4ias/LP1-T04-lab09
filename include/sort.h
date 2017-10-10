@@ -37,11 +37,11 @@ class Sort {
 		    }
 		}
 
-		void quicksort(vector<T> vtr, size_t star, size_t end){  
-		    size_t pivo ,star,ch;
-		    pivo =vtr[(star+end)/2];         
-		    for(size_t i=star+1;i<=end;i++){        
-		        size_t j = i;                      
+		void quicksort(vector<T> vtr, size_t begin, size_t end){  
+		    size_t pivo,ch,i,j;
+		    pivo =vtr[(begin+end)/2];         
+		    for(i=begin+1;i<=end;i++){        
+		        j = i;                      
 		        if(vtr[j] < vtr[pivo]){     
 		            ch = vtr[j];               
 		            while(j > pivo){           
@@ -52,24 +52,24 @@ class Sort {
 		            pivo++;                    
 		        }
 		    }
-		    if(pivo-1 >= star){              
-		        quick(vtr,star,pivo-1);      
+		    if(pivo-1 >= begin){              
+		        quick(vtr,begin,pivo-1);      
 		    }
 		    if(pivo+1 <= end){              
 		        quick(vtr,pivo+1,end);      
 		    }
 		}
 
-		void mergeSort(vector<T> vtr, size_t star, size_t end) {  
+		void mergeSort(vector<T> vtr, size_t start, size_t end) {  
 		    size_t i, j, k, metadeTamanho; 
 		    vector<T> vtrTemp;
-		    if(star == end) return;
-		    metadeTamanho = (star + end ) / 2;
+		    if(start == end) return;
+		    metadeTamanho = (start + end ) / 2;
 
-		    mergeSort(vtr, star, metadeTamanho);
+		    mergeSort(vtr, start, metadeTamanho);
 		    mergeSort(vtr, metadeTamanho + 1, end);
 
-		    i = star;
+		    i = start;
 		    j = metadeTamanho + 1;
 		    k = 0;
 
@@ -100,8 +100,8 @@ class Sort {
 		        }
 
 		    }
-		    for(i = star; i <= end; i++) {
-		        vtr[i] = vtrTemp[i - star];
+		    for(i = start; i <= end; i++) {
+		        vtr[i] = vtrTemp[i - start];
 		    }
 		    free(vtrTemp);
 		}
