@@ -72,7 +72,6 @@ class Sort{
 		}
 
 
-
 	private:
 		vector<T> * ref_database;
 };
