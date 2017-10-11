@@ -1,125 +1,78 @@
-#include <iostream>
 #include <vector>
-#include <string>
 #include <memory>
-#include <cmath>
+#include <iostream>
 using namespace std;
-
 template <typename T>
-class Sort {
+class Sort{
 	public:
-		Sort (vector<T>* vtr = nullptr): vtr_in(vtr){ }
-
-		void insertion (vector<T> vtr){  
-			size_t  j=0, x=0;  
-			for (size_t i=2; i<=vtr.size(); i++){  
-		    	x = vtr[i];
-		    	j=i-1;
-		    	vtr[0] = x; 
-		   		while (x < vtr[j]){
-		        	vtr[j+1] = vtr[j];
-		        	j--;
-		    	}
-			    vtr[j+1] = x;
-			}
-		}
-		void selection (vector<T> vtr){  
-		    size_t  min, x;
-		    for (size_t i=1; i<=vtr.size()-1; i++){
-		        min = i;
-		    for (size_t j=i+1; j<=vtr.size(); j++){
-		            if (vtr[j] < vtr[min])
-		            	min = j;
-		    }
-		    x = vtr[min];
-		    vtr[min] = vtr[i];
-		    vtr[i] = x;
-		    }
-		}
-
-		void quick(vector<T> vtr, size_t begin, size_t end){  
-		    size_t pivo,ch,i,j;
-		    pivo =vtr[(begin+end)/2];         
-		    for(i=begin+1;i<=end;i++){        
-		        j = i;                      
-		        if(vtr[j] < vtr[pivo]){     
-		            ch = vtr[j];               
-		            while(j > pivo){           
-		                vtr[j] = vtr[j-1];      
-		                j--;                    
-		            }
-		            vtr[j] = ch;               
-		            pivo++;                    
-		        }
-		    }
-		    if(pivo-1 >= begin){              
-		        quick(vtr,begin,pivo-1);      
-		    }
-		    if(pivo+1 <= end){              
-		        quick(vtr,pivo+1,end);      
-		    }
-		}
-
-		void merge(vector<T> vtr, size_t start, size_t end) {  
-		    size_t i, j, k, metadeTamanho; 
-		    vector<T> vtrTemp;
-		    if(start == end) return;
-		    metadeTamanho = (start + end ) / 2;
-
-		    mergeSort(vtr, start, metadeTamanho);
-		    mergeSort(vtr, metadeTamanho + 1, end);
-
-		    i = start;
-		    j = metadeTamanho + 1;
-		    k = 0;
-
-		    while(i < metadeTamanho + 1 || j  < end + 1) {
-		        if (i == metadeTamanho + 1 ) { 
-		            vtrTemp[k] = vtr[j];
-		            j++;
-		            k++;
-		        }
-		        else {
-		            if (j == end + 1) {
-		                vtrTemp[k] = vtr[i];
-		                i++;
-		                k++;
-		            }
-		            else {
-		                if (vtr[i] < vtr[j]) {
-		                    vtrTemp[k] = vtr[i];
-		                    i++;
-		                    k++;
-		                }
-		                else {
-		                    vtrTemp[k] = vtr[j];
-		                    j++;
-		                    k++;
-		                }
-		            }
-		        }
-
-		    }
-		    for(i = start; i <= end; i++) {
-		        vtr[i] = vtrTemp[i - start];
-		    }
-		    free(vtrTemp);
-		}
-		void print_vtr(vector<T> obj){
+		Sort(vector<T>* _ref = nullptr): ref_database(_ref) {	}
+		void print_vector(vector<T> obj){
 			for(size_t k = 0; k < obj.size(); k++){
 				cout<<obj[k]<<" ";
 			}
-			cout<<endl;
+		cout<<endl;
+		}
+		
+		void selectionSort(vector<T> &obj){
+			T min, temp;
+			for(size_t i=0;i<obj.size()-1;i++){
+				min = i;
+				for(size_t j=i+1;j<obj.size();j++){
+					if(obj[j] < obj[min]){
+						min = j;
+					}
+						
+				}
+				if(min != i){	
+					temp = obj[i];
+					obj[i] = obj[min];
+					obj[min] = temp;
+				}	
+			}
+		}
+	
+		void insertionSort(vector<T> &obj) {
+
+		    for (int i = 1; i < obj.size(); i++) {
+				int escolhido = obj[i];
+				int j = i - 1;
+				
+				while ((j >= 0) && (obj[j] > escolhido)) {
+					obj[j + 1] = obj[j];
+					j--;
+				}
+				
+				obj[j + 1] = escolhido;
+			}
+		}
+		void quickSort(vector<T> &obj, size_t left, size_t right) {
+		    size_t i = left, j = right;
+		    size_t tmp;
+		    size_t pivot = obj[(left + right) / 2];
+		
+		    while (i <= j) {
+		        while (obj[i] < pivot)
+		            i++;
+		        while (obj[j] > pivot)
+		            j--;
+		        if (i <= j) {
+		                tmp = obj[i];
+		                obj[i] = obj[j];
+		                obj[j] = tmp;
+		                i++;
+		                j--;
+		            }
+		 
+		     
+		    if (left < j)
+		        quickSort(obj, left, j);
+		    if (i < right)
+		        quickSort(obj, i, right);
+			}
 		}
 
+
+
 	private:
-		vector<T> vtr_in;
+		vector<T> * ref_database;
 };
-
-
-
-
-
-
-
-
